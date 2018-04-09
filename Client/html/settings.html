@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Test Extension Options</title>
+ <link rel="stylesheet" type="text/css" href="/vendor/semantic/semantic.min.css">
+ <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+
+<body>
+
+<h2 class="ui header">
+  <img id='settings-img' src="/images/car.png">
+  <div class="content">
+    Vehicle
+    <div class="sub header">Accurately calculate fuel consumption based on your vehicle.</div>
+  </div>
+</h2>
+
+
+
+
+
+<div id='year' class='ui compact selection dropdown'>
+  <i class="dropdown icon"></i>
+  <div class="default text">Year</div>
+  <div class="menu">
+  </div>
+</div>
+
+
+
+<div id='make' class='ui search selection dropdown'>
+  <i class="dropdown icon"></i>
+  <div class="default text">Make</div>
+  <div class="menu">
+  </div>
+</div>
+
+
+
+
+<div id='model' class='ui search selection dropdown'>
+  <i class="dropdown icon"></i>
+  <div class="default text">Model</div>
+  <div class="menu">
+
+  </div>
+</div>
+
+
+
+<div id='type' class='ui selection dropdown'>
+  <i class="dropdown icon"></i>
+  <div class="default text">Type</div>
+  <div class="menu">
+
+  </div>
+</div>
+
+
+
+
+<p>
+
+</p>
+
+
+
+<div class= "vehicle-info-container">
+	
+	<div class="vehicle-info">
+
+				<h2 class="ui icon small header">
+			  <i class="building icon"></i>
+			  <div class="content">
+				City Fuel Efficiency
+				<div id='city-economy' class="sub header">---</div>
+			  </div>
+			</h2>
+	
+	</div>
+
+	<div class="vehicle-info">
+
+	
+			<h2 class="ui icon small header">
+		  <i class="road icon"></i>
+		  <div class="content">
+			Highway Fuel Efficiency
+			<div id='highway-economy' class="sub header">---</div>
+		  </div>
+		</h2>
+
+</div>
+
+
+
+	
+		<div class="vehicle-info">
+
+				<h2 class="ui icon small header">
+			  <i class="theme icon"></i>
+			  <div class="content">
+				Fuel Type
+				<div id ='fuel-type' class="sub header">---</div>
+			  </div>
+			</h2>
+	
+	</div>
+
+
+</div>
+
+<button id ='save' class="ui disabled primary labeled icon button" type="button">
+  <i class="save icon"></i> Save
+</button>
+
+
+
+<script src="/vendor/jquery-3.3.1.min.js"></script>
+<script src="/vendor/semantic/semantic.min.js"></script>
+<script src="/script/script.js"></script>
+</body>
+</html>

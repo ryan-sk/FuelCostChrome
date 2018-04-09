@@ -1,0 +1,41 @@
+body {
+	min-width: 745px;
+	padding: 1.2em;
+	
+	width: intrinsic;           /* Safari/WebKit uses a non-standard name */
+	width: -moz-max-content;    /* Firefox/Gecko */
+	width: -webkit-max-content; /* Chrome */
+	}
+	
+html, body {
+	height: 323px;
+}
+
+.vehicle-info {
+  
+   width: 175px;
+   
+  display: inline-block;
+  
+}
+
+.vehicle-info-container {
+	text-align: center;
+	margin-top: 25px;
+	margin-bottom: 15px;
+	opacity: 0.4;
+}
+
+#save{
+	float: right;
+	margin-right: 0;
+}
+
+#fuel-type, #highway-economy, #city-economy{
+	font-size: 1.4rem;
+}
+
+#settings-img{
+	max-width:60px;
+	max-height:60px;
+}

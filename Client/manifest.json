@@ -1,0 +1,46 @@
+{
+  "manifest_version": 2,
+
+  "name": "Route Cost for Google Maps™",
+  "description": "Description goes here",
+  "version": "1.0",
+"permissions": [
+  "https://routecostmapextension.appspot.com/*",
+  "storage",
+  "gcm"
+],
+"background": {
+      "scripts": ["script/background.js"],
+      "persistent": false
+  },
+
+  "content_scripts":[
+		{
+		"matches": ["https://www.google.ca/maps/*","https://www.google.com/maps/*"],
+		"css": ["vendor/semantic/menu.css","vendor/semantic/item.css","vendor/semantic/icon.css","vendor/semantic/popup.css","vendor/semantic/transition.css","css/main.css"],
+		"js": ["vendor/jquery-3.3.1.min.js","vendor/handlebars-v4.0.11.js","vendor/semantic/popup.js","vendor/semantic/transition.js","script/testJs.js"]
+		}
+	],
+	
+	"web_accessible_resources": ["html/*","vendor/*", "themes/*"],
+
+  
+  "options_ui": {
+    // Required.
+    "page": "html/settings.html",
+    // Recommended.
+    "chrome_style": false
+    // Not recommended; only provided for backwards compatibility,
+    // and will be unsupported in a future version of Chrome (TBD).
+    //"open_in_tab": true
+  },
+  
+  "icons": {
+	"128": "images/gas-station-final.png" 
+	},
+  
+     "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsfI5oB7Sd5EZsc54AhU0w6QFsu67v0S6IJ+V8vl8ZBJTgljnnp859J70neLS1df2IVKYFbCHkNCYorKKvWbZNEquSaicXaj15zxfSnA0SB2PENgbXRqnLOP/ipJ28mVoOOiyuiv1kefgr7TArN14DyBR+j0B1wWJ3Lh9noDkUlq3y+C4EzBmKqEhJllE5PoatWWubq6qQli63q8/1xvADuOEybT+uenU60WzUHme6a11/5pkweiaqLvN3QEq6Hf28dLjyhIg48kaX5aRbf6YA8dtqV2Q/HkIA/Es/P9b5ilB1vMeq6ZJjnjJk5tl/qwhK1Dje9R1QCrYYog39RojtwIDAQAB"
+
+  
+  
+}
