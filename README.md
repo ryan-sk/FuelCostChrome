@@ -1,2 +1,2 @@
 # FuelCostChrome
-Chrome plugin to include cost of fuel in Google Maps.
+Chrome plugin that adds cost of fuel to Google Maps.
