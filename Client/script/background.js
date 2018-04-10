@@ -1,5 +1,5 @@
 chrome.runtime.onInstalled.addListener(function (details) {
-	//Open settings page if extension was installed first time or has been updated.
+	//Open settings page on first install or update
 	if(details.reason == "install" || details.reason == "update"){
 		chrome.runtime.openOptionsPage();
 	}
