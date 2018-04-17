@@ -184,6 +184,7 @@ setInterval(
 			}
 		}, 333);
 
+//Programmaticly injected styles allows for CSS debugging with browser tools
 function injectStyles(url) {
 	var elem = document.createElement('link');
 	elem.rel = 'stylesheet';
