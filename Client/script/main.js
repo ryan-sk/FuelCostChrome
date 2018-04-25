@@ -52,7 +52,7 @@ var renderWidgetFromResp = function(resp, items) {
 
 	// Add descriptive popups to all three panes (Cost, Volume, Gas Price) with
 	// localized units
-	var source = "<div class='header'>Trip Fuel Cost ({{currency}})</div><div class='content'>Approximate gas cost, based on moderate traffic, for the current fastest route.<br><br> Estimated economy on route: <span id='economy-value'>{{economy}}</span> <span id='economy-unit'>{{economyUnit}}</span>. *<br><br><span class='disclaimer'>*Your fuel economy will vary. Factors such as stop-and-go traffic and excessive idling can lower your fuel economy by roughly 10% to 40%.</span></div>";
+	var source = "<div class='header'>Trip Fuel Cost ({{currency}})</div><div class='content'>Approximate gas cost for the fastest route based on current traffic.<br><br> Estimated economy on route: <span id='economy-value'>{{economy}}</span> <span id='economy-unit'>{{economyUnit}}</span>. *<br><br><span class='disclaimer'>*Your fuel economy will vary. Factors such as stop-and-go traffic and excessive idling can lower your fuel economy by roughly 10% to 40%.</span></div>";
 	var template = Handlebars.compile(source);
 	var context = {
 		currency : currency,
@@ -162,7 +162,7 @@ setInterval(
 											var req = $
 													.ajax({
 														type : "GET",
-														url : "https://routecostmapextension.appspot.com/api/cost"
+														url : "https://fuelcostmapextension.appspot.com/api/cost"
 																+ reqPath,
 														dataType : 'json'
 													});

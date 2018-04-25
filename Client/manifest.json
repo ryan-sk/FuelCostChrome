@@ -1,11 +1,11 @@
 {
   "manifest_version": 2,
 
-  "name": "Route Cost for Google Maps™",
-  "description": "Description goes here",
+  "name": "Fuel Cost for Google Maps™",
+  "description": "Instantly know the cost of gas for your route in Google Maps.",
   "version": "1.0",
 "permissions": [
-  "https://routecostmapextension.appspot.com/*",
+  "https://fuelcostmapextension.appspot.com/*",
   "storage",
   "gcm"
 ],
@@ -18,7 +18,7 @@
 		{
 		"matches": ["https://www.google.ca/maps/*","https://www.google.com/maps/*"],
 		"css": ["vendor/semantic/menu.css","vendor/semantic/item.css","vendor/semantic/icon.css","vendor/semantic/popup.css","vendor/semantic/transition.css","css/main.css"],
-		"js": ["vendor/jquery-3.3.1.min.js","vendor/handlebars-v4.0.11.js","vendor/semantic/popup.js","vendor/semantic/transition.js","script/testJs.js"]
+		"js": ["vendor/jquery-3.3.1.min.js","vendor/handlebars-v4.0.11.js","vendor/semantic/popup.js","vendor/semantic/transition.js","script/main.js"]
 		}
 	],
 	

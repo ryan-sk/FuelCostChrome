@@ -21,7 +21,6 @@ class Dropdown {
                     this.selectedValue = value;
                     onSelect();
                 }
-                console.log('changed:' + this.$element.attr('id') + ' text:' + text + " value:" + value) // alert("changed")
 
             }).bind(this),
             direction: "downward"
@@ -150,7 +149,6 @@ class SettingsController {
 
         this.saveButton.on('click', function() {
 
-            console.log('clicked')
             this.saveButton.addClass('disabled')
 
             var saveFields = {
@@ -163,16 +161,15 @@ class SettingsController {
                 fuelText: this.fuelTypeNode.text()
 
             }
-            console.log(saveFields)
+         
             chrome.storage.sync.set(saveFields, function() {
-                console.log('saved!!');
                 this.saveButton.popup({
                     content: "Saved! You're all set!",
                     on: 'click'
                 }).popup('show');
 
                 setTimeout(function() {
-                    window.open('https://www.google.ca/maps/dir/Mountain+View,+CA,+USA/Palo+Alto,+CA,+USA', '_blank')
+                    window.open('https://www.google.com/maps/dir/San+Francisco,+California,+USA/Palo+Alto,+California,+USA', '_blank')
                 }, 1500);
 
             }.bind(this));
@@ -458,8 +455,6 @@ class SettingsController {
 
         chrome.storage.sync.get(null, function(items) {
 
-            console.log(items);
-
             if (items.hasOwnProperty("type")) {
 
 
@@ -476,8 +471,6 @@ class SettingsController {
 }
 
 $(document).ready(function() {
-    console.log("ready!");
-
     settingsController = new SettingsController();
     settingsController.initialize();
 });
