@@ -2,7 +2,7 @@
   "manifest_version": 2,
 
   "name": "Fuel Cost for Google Maps™",
-  "description": "Instantly know the cost of gas for your route in Google Maps.",
+  "description": "Find out your gas usage before you hit the road with this extension for Google Maps™.",
   "version": "1.0",
 "permissions": [
   "https://fuelcostmapextension.appspot.com/*",
@@ -26,21 +26,12 @@
 
   
   "options_ui": {
-    // Required.
     "page": "html/settings.html",
-    // Recommended.
     "chrome_style": false
-    // Not recommended; only provided for backwards compatibility,
-    // and will be unsupported in a future version of Chrome (TBD).
-    //"open_in_tab": true
   },
   
   "icons": {
 	"128": "images/gas-station-final.png" 
-	},
-  
-     "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsfI5oB7Sd5EZsc54AhU0w6QFsu67v0S6IJ+V8vl8ZBJTgljnnp859J70neLS1df2IVKYFbCHkNCYorKKvWbZNEquSaicXaj15zxfSnA0SB2PENgbXRqnLOP/ipJ28mVoOOiyuiv1kefgr7TArN14DyBR+j0B1wWJ3Lh9noDkUlq3y+C4EzBmKqEhJllE5PoatWWubq6qQli63q8/1xvADuOEybT+uenU60WzUHme6a11/5pkweiaqLvN3QEq6Hf28dLjyhIg48kaX5aRbf6YA8dtqV2Q/HkIA/Es/P9b5ilB1vMeq6ZJjnjJk5tl/qwhK1Dje9R1QCrYYog39RojtwIDAQAB"
+	}
 
-  
-  
 }
