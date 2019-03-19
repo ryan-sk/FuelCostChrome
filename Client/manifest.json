@@ -3,14 +3,14 @@
 
   "name": "Fuel Cost for Google Maps™",
   "description": "Find out your gas usage before you hit the road with this extension for Google Maps™.",
-  "version": "1.0",
+  "version": "1.1",
 "permissions": [
   "https://fuelcostmapextension.appspot.com/*",
   "storage",
   "gcm"
 ],
 "background": {
-      "scripts": ["script/background.js"],
+      "scripts": ["vendor/jquery-3.3.1.min.js","script/background.js"],
       "persistent": false
   },
 
@@ -33,5 +33,4 @@
   "icons": {
 	"128": "images/gas-station-final.png" 
 	}
-
 }

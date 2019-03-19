@@ -13,73 +13,76 @@ var clearWidget = function() {
 }
 
 // Renders a widget with 3 panels from the response and items from local storage
-var renderWidgetFromResp = function(resp, items) {
+var renderWidgetFromResp = function(resp) {
 
-	// Format the calculated values from the server
-	var routeCost = parseFloat(resp.result.total_cost).toFixed(2);
-	var fuelVolume = parseFloat(resp.result.total_gas_volume).toFixed(2);
-	var gasPrice = Math.floor(parseFloat(resp.result.gas_price) * 1000) / 10;
-	var economy = parseFloat(resp.result.average_economy).toFixed(1);
+	chrome.storage.sync.get(null,function(items) 
+	{
+		// Format the calculated values from the server
+		var routeCost = parseFloat(resp.result.total_cost).toFixed(2);
+		var fuelVolume = parseFloat(resp.result.total_gas_volume).toFixed(2);
+		var gasPrice = Math.floor(parseFloat(resp.result.gas_price) * 1000) / 10;
+		var economy = parseFloat(resp.result.average_economy).toFixed(1);
 
-	// Substitute values into HTML template
-	var source = '<div id="rcmeWidget"><div class="menu-wrapper"><div class="ui small compact inverted menu" style="position: relative;"><a id="cost" class="item"><i class="money icon"></i>${{routeCost}}</a><a id="volume" class="item"><i class="theme icon"></i>{{fuelVolume}}</a><a id="price" class="item"><i class="filter icon"></i>{{gasPrice}}</a></div></div></div>';
-	var template = Handlebars.compile(source);
-	var context = {
-		routeCost : routeCost,
-		fuelVolume : fuelVolume,
-		gasPrice : gasPrice
-	};
-	var html = template(context);
+		// Substitute values into HTML template
+		var source = '<div id="rcmeWidget"><div class="menu-wrapper"><div class="ui small compact inverted menu" style="position: relative;"><a id="cost" class="item"><i class="money icon"></i>${{routeCost}}</a><a id="volume" class="item"><i class="theme icon"></i>{{fuelVolume}}</a><a id="price" class="item"><i class="filter icon"></i>{{gasPrice}}</a></div></div></div>';
+		var template = Handlebars.compile(source);
+		var context = {
+			routeCost : routeCost,
+			fuelVolume : fuelVolume,
+			gasPrice : gasPrice
+		};
+		var html = template(context);
 
-	// Add the widget to the DOM and keep a pointer to it
-	$('body').append($.parseHTML(html));
-	$widget = $('#rcmeWidget');
+		// Add the widget to the DOM and keep a pointer to it
+		$('body').append($.parseHTML(html));
+		$widget = $('#rcmeWidget');
 
-	var currency;
-	var volumeUnit;
-	var economyUnit;
-	var fuelType = items.fuelText;
+		var currency;
+		var volumeUnit;
+		var economyUnit;
+		var fuelType = items.fuelText;
 
-	if (resp.is_metric) {
-		currency = "CAD"
-		volumeUnit = "Litres"
-		economyUnit = "L/100km"
-	} else {
-		currency = "USD"
-		volumeUnit = "Gallons"
-		economyUnit = "mpg"
-	}
+		if (resp.is_metric) {
+			currency = "CAD"
+			volumeUnit = "Litres"
+			economyUnit = "L/100km"
+		} else {
+			currency = "USD"
+			volumeUnit = "Gallons"
+			economyUnit = "mpg"
+		}
 
-	// Add descriptive popups to all three panes (Cost, Volume, Gas Price) with
-	// localized units
-	var source = "<div class='header'>Trip Fuel Cost ({{currency}})</div><div class='content'>Approximate gas cost for the fastest route based on current traffic.<br><br> Estimated economy on route: <span id='economy-value'>{{economy}}</span> <span id='economy-unit'>{{economyUnit}}</span>. *<br><br><span class='disclaimer'>*Your fuel economy will vary. Factors such as stop-and-go traffic and excessive idling can lower your fuel economy by roughly 10% to 40%.</span></div>";
-	var template = Handlebars.compile(source);
-	var context = {
-		currency : currency,
-		economy : economy,
-		economyUnit : economyUnit
-	};
-	var popupHtml = template(context);
+		// Add descriptive popups to all three panes (Cost, Volume, Gas Price) with
+		// localized units
+		var source = "<div class='header'>Trip Fuel Cost ({{currency}})</div><div class='content'>Approximate gas cost for the fastest route based on current traffic.<br><br> Estimated economy on route: <span id='economy-value'>{{economy}}</span> <span id='economy-unit'>{{economyUnit}}</span>. *<br><br><span class='disclaimer'>*Your fuel economy will vary. Factors such as stop-and-go traffic and excessive idling can lower your fuel economy by roughly 10% to 40%.</span></div>";
+		var template = Handlebars.compile(source);
+		var context = {
+			currency : currency,
+			economy : economy,
+			economyUnit : economyUnit
+		};
+		var popupHtml = template(context);
 
-	$('#cost').popup({
-		title : "Trip Fuel Cost (" + currency + ")",
-		html : popupHtml,
-		variation : "mini inverted wide"
+		$('#cost').popup({
+			title : "Trip Fuel Cost (" + currency + ")",
+			html : popupHtml,
+			variation : "mini inverted wide"
+		});
+
+		$('#volume').popup({
+			title : "Fuel Volume (" + volumeUnit + ")",
+			content : "Approximate amount of gas consumed on this trip.",
+			variation : "mini inverted"
+		});
+
+		$('#price')
+				.popup(
+						{
+							title : "Local Gas Price (" + fuelType + ")",
+							content : "Today's gas price at stations near the starting location. This figure is used to determine the total fuel cost of the trip.",
+							variation : "mini inverted"
+						});
 	});
-
-	$('#volume').popup({
-		title : "Fuel Volume (" + volumeUnit + ")",
-		content : "Approximate amount of gas consumed on this trip.",
-		variation : "mini inverted"
-	});
-
-	$('#price')
-			.popup(
-					{
-						title : "Local Gas Price (" + fuelType + ")",
-						content : "Today's gas price at stations near the starting location. This figure is used to determine the total fuel cost of the trip.",
-						variation : "mini inverted"
-					});
 }
 
 // Takes in the json error response from the server and displays a widget with
@@ -117,6 +120,23 @@ var renderVehiclePrompt = function() {
 	$widget = $('#rcmeWidget');
 }
 
+
+// Open a two way connection with the background script to make cross domain requests.
+var port = chrome.runtime.connect({name: "request"});
+
+// Basically uses the background script as a proxy for the endpoint we were using before.
+// This is the callback on the response.
+port.onMessage.addListener(function(msg) {
+  if (msg.isSuccess){
+    clearWidget();
+	renderWidgetFromResp(msg.resp);
+  }
+  else{
+	clearWidget();
+	renderFailWidgetFromResp(msg.resp);    
+  }
+});
+
 // Main function. Periodically check if the user is in Directions mode.
 setInterval(
 		function() {
@@ -136,38 +156,11 @@ setInterval(
 										// requests as usual. Otherwise, display
 										// prompt to select vehicle in settings
 										// page.
+										
 										if (items.hasOwnProperty('type')) {
 											var type = items.type;
 
-											var success = function(resp) {
-												clearWidget();
-												renderWidgetFromResp(resp,
-														items);
-											};
-
-											var failure = function(resp) {
-												clearWidget();
-												renderFailWidgetFromResp(resp);
-
-											};
-
-											// Manually create path because
-											// encoders encode plus-sign (+),
-											// which causes Maps Api to not find
-											// certain locations when passed to
-											// server side.
-											var reqPath = "?start=" + path[3]
-													+ "&end=" + path[4]
-													+ "&id=" + type;
-											var req = $
-													.ajax({
-														type : "GET",
-														url : "https://fuelcostmapextension.appspot.com/api/cost"
-																+ reqPath,
-														dataType : 'json'
-													});
-
-											req.then(success, failure);
+											port.postMessage({start: path[3], end:path[4], id:type});
 										} else {
 											renderVehiclePrompt();
 										}
