@@ -5,7 +5,7 @@
   "description": "Find out your gas usage before you hit the road with this extension for Google Maps™.",
   "version": "1.1",
 "permissions": [
-  "https://fuelcostmapextension.appspot.com/*",
+  "https://fuelcostmapextension.nn.r.appspot.com/*",
   "storage",
   "gcm"
 ],

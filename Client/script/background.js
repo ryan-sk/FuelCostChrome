@@ -13,7 +13,7 @@ chrome.runtime.onConnect.addListener(function(port) {
 		var reqPath = "?start=" + msg.start + "&end=" + msg.end + "&id=" + msg.id;
 		var req = $.ajax({
 					type : "GET",
-					url : "https://fuelcostmapextension.appspot.com/api/cost"
+					url : "https://fuelcostmapextension.nn.r.appspot.com/api/cost"
 							+ reqPath,
 					dataType : 'json'
 				});
