@@ -1,6 +1,6 @@
 chrome.runtime.onInstalled.addListener(function (details) {
-	//Open settings page on first install or update
-	if(details.reason == "install" || details.reason == "update"){
+	//Open settings page on first install
+	if(details.reason == "install"){
 		chrome.runtime.openOptionsPage();
 	}
 });
